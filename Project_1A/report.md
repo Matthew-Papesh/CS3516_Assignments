@@ -121,6 +121,13 @@ while True:
 
 TCP and UDP are similar and yet different in many ways. TCP may be more reliable over UDP for data transmission, but UDP may have less latency and overhead over TCP. It is worth noticing how connections need to be bounded on both protocols, but TPC client connects as initialization to communication while UDP client only connects upon sending transmissions. TCP servers listen and accept connections to clients as initialization to receiving communication while UDP servers may not always initially know where transmissions come from. Moreover, it makes sense how TCP servers only return the data when receiving transmissions, but UDP servers also return the address of origin of the transmission. 
 
-<img src="./images/TCP_ServerSide.png" alt="Alt Text" style="width:100%; height:auto;">
+<div class="tcp_row">
+	<div class="tcp_server_col">
+		<img src="./images/TCP_ServerSide.png" alt="Alt Text" style="width:100%; height:auto;">
+	</div>
+	<div class="tcp_client_col">
+		<img src="./images/TCP_ClientSide.png" alt="Alt Text" style="width:100%; height:auto;">
+	</div>
+</div>
 
 Overall, the implementations were similar, but were both designed with different uses in mind. The code was also designed with print statements and exception handling for debugging purposes. 
