@@ -105,13 +105,13 @@ The socket on the client-side does not initially connect to the server, but inst
 
 The socket on the server-side binds to the specified client host and entry port. The server begins by immediately spinning and awaits data packets sent from the expected client. The server does not connect to the client until when checking for received data by use of the `recvfrom()` method, where not only is the data returned, but so is the client address to identify the sender. The server then prints the retrieved data but does not transmit back to the client. The client assumes or does not know if the server has received its transmissions. 
 
-    ```py
-        # open connection by udp
-		while True:
-			# retrieve any received data from various clients by address
-			data, address = udp_socket.recvfrom(1024)
-			print("Received from client " + str(address) + ": " + str(data))
-    ```
+```py
+    # open connection by udp
+	while True:
+		# retrieve any received data from various clients by address
+		data, address = udp_socket.recvfrom(1024)
+		print("Received from client " + str(address) + ": " + str(data))
+```
 
 ## Conclusion:
 TCP and UDP are similar and yet different in many ways. TCP may be more reliable over UDP for data transmission, but UDP may have less latency and overhead over TCP. It is worth noticing how connections need to be bounded on both protocols, but TPC client connects as initialization to communication while UDP client only connects upon sending transmissions. TCP servers listen and accept connections to clients as initialization to receiving communication while UDP servers may not always initially know where transmissions come from. Moreover, it makes sense how TCP servers only return the data when receiving transmissions, but UDP servers also return the address of origin of the transmission. 
