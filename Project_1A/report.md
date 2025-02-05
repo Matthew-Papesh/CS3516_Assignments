@@ -1,8 +1,11 @@
 # **Project 1A Report**
+
 ### Matthew Papesh - Feb 3rd, 2025
+
 ### CS 3516
 
 ## Overview:    
+
 The objective of this assignment was to explore and implement TCP and UDP protocols in python for communication between a given client and server. 
 
 Transmission Protocol Standard [TCP] allows for the communication of data packets across a sending and receiving device given specified host names for targets at specified port entry points on known internet networks. TCP also is a reliable means of communicating as it transmits from a client device to a server such that the server will communicate back to the client that it as received its message. This is also good for error correction as lost or corrupted data packets can be communicated back to client and re-transmitted. 
@@ -12,6 +15,7 @@ User Datagram Protocol [UDP] allows for the communication of data packets across
 TCP and UDP are used for different purposes. TCP is ideal for when data reliability is a must, and UDP is emphasized for when minimal latency is demanded. Examples of this is that TCP is good for sending emails or downloading websites when exploring the internet by http protocols. Where data accuracy is required. Meanwhile video calls and other live forms of communication can come in the form of UDP since staying live and not slowing down is needed; and if the video slightly glitches once in a one hour call from some erroneous data packets transmitted, then that is fine. 
 
 ## TCP Implementation:
+
 TCP was implemented in python by use of the socket library on local host with a network entry point port of 8450. Sockets also transmit an expected buffer size of 1024 bits. A socket is opened client-side and server-side files (**tcp_client.py, tcp_server.py**) by calling `socket.socket()` where `socket.AF_INET` is used for indicating allowable internet protocols for communication while `socket.SOCK_STREAM` is specified for indicating the use of a TCP protocol. 
 
 ```py
@@ -73,6 +77,7 @@ with connection:
 ```
 
 ## UDP Implementation:
+
 UDP was implemented in python by use of the socket library on local host with a network entry point port of 8451. Sockets also transmit an expected buffer size of 1024 bits. A socket is opened client-side and server-side files (**udp_client.py, udp_server.py**) by calling `socket.socket()` where `socket.AF_INET` is used for indicating allowable internet protocols for communication while `socket.SOCK_DGRAM` is specified for indicating the use of UDP protocol.
 
 ```py
@@ -113,6 +118,9 @@ while True:
 ```
 
 ## Conclusion:
+
 TCP and UDP are similar and yet different in many ways. TCP may be more reliable over UDP for data transmission, but UDP may have less latency and overhead over TCP. It is worth noticing how connections need to be bounded on both protocols, but TPC client connects as initialization to communication while UDP client only connects upon sending transmissions. TCP servers listen and accept connections to clients as initialization to receiving communication while UDP servers may not always initially know where transmissions come from. Moreover, it makes sense how TCP servers only return the data when receiving transmissions, but UDP servers also return the address of origin of the transmission. 
+
+<img src="./images/TCP_ServerSide.png" alt="Alt Text" width="300" height="200">
 
 Overall, the implementations were similar, but were both designed with different uses in mind. The code was also designed with print statements and exception handling for debugging purposes. 
