@@ -14,103 +14,102 @@ TCP and UDP are used for different purposes. TCP is ideal for when data reliabil
 ## TCP Implementation:
 TCP was implemented in python by use of the socket library on local host with a network entry point port of 8450. Sockets also transmit an expected buffer size of 1024 bits. A socket is opened client-side and server-side files (**tcp_client.py, tcp_server.py**) by calling `socket.socket()` where `socket.AF_INET` is used for indicating allowable internet protocols for communication while `socket.SOCK_STREAM` is specified for indicating the use of a TCP protocol. 
 
-    ```py
-        # server-side TCP - opening communication 
-        # open communication via tcp
-	    with s.socket(s.AF_INET, s.SOCK_STREAM) as tcp_socket:
-	    	# enter specified entry point port and listen
-	    	try:
-	    		tcp_socket.bind((host, port))
-	    		print("Binded to " + str(host) + ":" + str(port))
-	    	except Exception as e:
-	    		print(f"Error binding to socket: {e}")
-	    	print("Server has began listening...")
-	    	tcp_socket.listen()
-	    	print("Server is still listening...")
-
-	    	# confirm connection
-	    	connection, address = tcp_socket.accept()
-    ```
+```py
+# server-side TCP - opening communication 
+# open communication via tcp
+with s.socket(s.AF_INET, s.SOCK_STREAM) as tcp_socket:
+	# enter specified entry point port and listen
+	try:
+		tcp_socket.bind((host, port))
+		print("Binded to " + str(host) + ":" + str(port))
+	except Exception as e:
+		print(f"Error binding to socket: {e}")
+	print("Server has began listening...")
+	tcp_socket.listen()
+	print("Server is still listening...")
+	# confirm connection
+	connection, address = tcp_socket.accept()
+```
 
 The socket on client-side first connects to a given server host and port. The client then spins collecting user input from the terminal that is then encoded to be sent to the server over TCP by use of the `sendall()` method. The client then receives data back from the server and is printed on the client. If the user input ever is `exit`, the client terminates. 
 
-    ```py
-        # open communication via tcp
-	    with s.socket(s.AF_INET, s.SOCK_STREAM) as tcp_socket:
-	    	# connect to specified entry point port on server network
-	    	tcp_socket.connect((host, port))
-	    	while True:
-	    		# transmit data from input
-	    		msg = input("transmitting msg: ")
-	    		tcp_socket.sendall(msg.encode()) # encode data
-	    		# end client if told to exit
-	    		if msg == "exit":
-	    			print("exiting; ending service...")
-	    			break
-	    		# retrieve returned message from tcp 10240bit buffer size
-	    		data = tcp_socket.recv(1024)
-    ```
+```py
+# open communication via tcp
+with s.socket(s.AF_INET, s.SOCK_STREAM) as tcp_socket:
+	# connect to specified entry point port on server network
+	tcp_socket.connect((host, port))
+	while True:
+		# transmit data from input
+		msg = input("transmitting msg: ")
+		tcp_socket.sendall(msg.encode()) # encode data
+		# end client if told to exit
+		if msg == "exit":
+			print("exiting; ending service...")
+			break
+		# retrieve returned message from tcp 10240bit buffer size
+		data = tcp_socket.recv(1024)
+```
 
 The socket on the server-side binds to the specified client host and entry port. The server begins to listen for transmissions from the client before accepting connection and client address. The server opens the connection, receives data by use of the `recv()` method and then prints the transmitted data. The server then sends the data back to the client. If a transmission is received without data, the server assumes the client as terminated and it to also exits and terminates. 
 
-    ```py
-        # confirm connection
-		connection, address = tcp_socket.accept()
-		# open connection and listen/receive data by tcp
-		with connection:
-			print("Connected TCP socket by address: " + str(address))
-			while True:
-				# listen for tcp data of 1024-bit buffer size
-				data = connection.recv(1024)
-				# contribute hosting server-side tcp as long as
-				# client is still using service (not data == False)
-				if not data:
-					break
-				# return data to client
-				print("Sending data back to client: data == " + str(data))
-				connection.sendall(data)
-            # print data
-			print("Received data: " + str(data))
-    ```
+```py
+# confirm connection
+connection, address = tcp_socket.accept()
+# open connection and listen/receive data by tcp
+with connection:
+	print("Connected TCP socket by address: " + str(address))
+	while True:
+		# listen for tcp data of 1024-bit buffer size
+		data = connection.recv(1024)
+		# contribute hosting server-side tcp as long as
+		# client is still using service (not data == False)
+		if not data:
+			break
+		# return data to client
+		print("Sending data back to client: data == " + str(data))
+		connection.sendall(data)
+    # print data
+	print("Received data: " + str(data))
+```
 
 ## UDP Implementation:
 UDP was implemented in python by use of the socket library on local host with a network entry point port of 8451. Sockets also transmit an expected buffer size of 1024 bits. A socket is opened client-side and server-side files (**udp_client.py, udp_server.py**) by calling `socket.socket()` where `socket.AF_INET` is used for indicating allowable internet protocols for communication while `socket.SOCK_DGRAM` is specified for indicating the use of UDP protocol.
 
-    ```py
-        # server-side UDP - opening communication 
-        with s.socket(s.AF_INET, s.SOCK_DGRAM) as udp_socket:
-	    	# enter specified entry point port and bind
-		    try:
-			    udp_socket.bind((host, port))
-		    	print("Bounded to " + str(host) + ":" + str(port))
-		    except Exception as e:
-			    print(f"Error binding to socket: {e}") 
-    ```
+```py
+# server-side UDP - opening communication 
+with s.socket(s.AF_INET, s.SOCK_DGRAM) as udp_socket:
+	# enter specified entry point port and bind
+    try:
+	    udp_socket.bind((host, port))
+    	print("Bounded to " + str(host) + ":" + str(port))
+    except Exception as e:
+	    print(f"Error binding to socket: {e}") 
+```
 
 The socket on the client-side does not initially connect to the server, but instead begins spinning instead to await user input. User input is encoded and then send over the socket by also specifying the server host and port at this time only. Data is then sent over to the server by UDP by use of the `sendto()` method, where not only is the data required, but so is the destination. If the user input ever is `exit`, the client terminates. 
 
-    ```py
-        # open communication via udp
-	    with s.socket(s.AF_INET, s.SOCK_DGRAM) as udp_socket:
-	    	while True:
-	    		# input data from user
-	    		msg = input("transmitting msg: ")
-	    		# end client if told to exit
-	    		if msg == "exit":
-	    			print("exiting; ending service...")
-	    			break
-	    		# temporarily connect for single transmission by udp
-	    		udp_socket.sendto(msg.encode(), (host, port))
-    ```
+```py
+# open communication via udp
+with s.socket(s.AF_INET, s.SOCK_DGRAM) as udp_socket:
+	while True:
+		# input data from user
+		msg = input("transmitting msg: ")
+		# end client if told to exit
+		if msg == "exit":
+			print("exiting; ending service...")
+			break
+		# temporarily connect for single transmission by udp
+		udp_socket.sendto(msg.encode(), (host, port))
+```
 
 The socket on the server-side binds to the specified client host and entry port. The server begins by immediately spinning and awaits data packets sent from the expected client. The server does not connect to the client until when checking for received data by use of the `recvfrom()` method, where not only is the data returned, but so is the client address to identify the sender. The server then prints the retrieved data but does not transmit back to the client. The client assumes or does not know if the server has received its transmissions. 
 
 ```py
-    # open connection by udp
-	while True:
-		# retrieve any received data from various clients by address
-		data, address = udp_socket.recvfrom(1024)
-		print("Received from client " + str(address) + ": " + str(data))
+# open connection by udp
+while True:
+	# retrieve any received data from various clients by address
+	data, address = udp_socket.recvfrom(1024)
+	print("Received from client " + str(address) + ": " + str(data))
 ```
 
 ## Conclusion:
