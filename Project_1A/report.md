@@ -121,13 +121,26 @@ while True:
 
 TCP and UDP are similar and yet different in many ways. TCP may be more reliable over UDP for data transmission, but UDP may have less latency and overhead over TCP. It is worth noticing how connections need to be bounded on both protocols, but TPC client connects as initialization to communication while UDP client only connects upon sending transmissions. TCP servers listen and accept connections to clients as initialization to receiving communication while UDP servers may not always initially know where transmissions come from. Moreover, it makes sense how TCP servers only return the data when receiving transmissions, but UDP servers also return the address of origin of the transmission. 
 
-<div class="row">
-	<div class="column"">
-		<img src="./images/TCP_ServerSide.png" alt="Alt Text" style="width:100%; height:auto;">
+<div class="row" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+	<div class="column">
+		<img src="./images/TCP_ServerSide.png" alt="tcp-server-side-comms" style="width:100%; height:auto;">
 	</div>
 	<div class="column">
-		<img src="./images/TCP_ClientSide.png" alt="Alt Text" style="width:100%; height:auto;">
+		<img src="./images/TCP_ClientSide.png" alt="tcp-client-side-comms" style="width:100%; height:auto;">
 	</div>
 </div>
+
+The above is a demonstration of the python TCP protocol using the socket library. Three transmissions are communicated over the client [right-side] to the server [left-side]. Messages being: 'b'initial_transmit', 'b'we_love_TCP', and 'b'final_msg'. The server also shows the local host of the client along with the entry point port of the connection. The communication ends with `exit` being sent and the client terminates with the server following shortly behind. Finally, it is worth noticing how the TCP server returns the data back to the client as well.   
+
+<div class="row" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+	<div class="column">
+		<img src="./images/UDP_ServerSide.png" alt="udp-server-side-comms" style="width:100%; height:auto%;">
+	</div>
+	<div class="column">
+		<img src="./images/UDP_ClientSide.png" alt="udp-client-side-comms" style="width:100%; height:auto:">	
+	</div>
+</div>
+
+The above is a demonstration of the python UDP protocol using the socket library. Three transmission are communicated over the client [right-side] to the server [left-side]. Message being: 'b'intial_message', 'b'we_like_UDP', and 'b'final_transmit'. The server also shows the local host of the client along with the entry point port of the connection. The communication ends with `exit` being sent and the client terminates with the server continuing to run and spin/idle. Finally, it is worth noticing how the UDP server does not return anything to the client as per UDP format. 
 
 Overall, the implementations were similar, but were both designed with different uses in mind. The code was also designed with print statements and exception handling for debugging purposes. 
