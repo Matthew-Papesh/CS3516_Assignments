@@ -2,42 +2,45 @@
 
 #import socket module
 from socket import *
-serverSocket = socket(AF_INET, SOCK_STREAM)
-#Prepare a sever socket
+serverSocket = socket(AF_INET, SOCK_STREAM) # tcp connection
 
-#### Fill in start ####
+# prepare a server socket
+# define host name and network entry port:
+host = "127.0.0.1"
+port = 5341
+# establish the connection
+print ('Ready to serve...')
+serverSocket.bind((host, port))
+serverSocket.listen()
 
-#### Fill in end ####
-
-while True:
-    #Establish the connection
-    print ('Ready to serve...')
-    connectionSocket, addr = #### Fill in here ####
+while True: # spin while running server
+    # confirm connection
+    connectionSocket, addr = serverSocket.accept()
 
     try:
-        message = #### Fill in here ####
-        filename = message.split()[1]
-        f = open(filename[1:])
-        outputdata = #### Fill in here ####
-        print (outputdata)
+        # receive 1024-bit buffer msg
+        message = connectionSocket.recv(1024).decode()
+        if message: # only read if a msg was sent
+            filename = message.split()[1]
+            f = open(filename[1:])
+            outputdata = f.read()
+            print(outputdata)
+            # send one HTTP header line into socket
+            responseHeader = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n"
+            response = responseHeader.encode() + outputdata.encode()
+            connectionSocket.sendall(response)
 
-        #Send one HTTP header line into socket
-
-	#### Fill in start ####
-	#### Fill in end ####
-
-        #Send the content of the requested file to the client
-        for i in range(0, len(outputdata)):
-            connectionSocket.send(outputdata[i].encode())
+        # send the content of the requested file to the client
+        #for i in range(0, len(outputdata)):
+        #    connectionSocket.send(outputdata[i].encode())
         connectionSocket.close()
 
     except IOError:
-        #Send response message for file not found
-	#### Fill in start ####
-	#### Fill in end #### 
-       
-        #Close client socket
-	#### Fill in start ####
-	#### Fill in end ####
-
+        # send response message for file not found
+        responseHeader = "HTTP/1.1 404 Not Found\r\n\r\n404 Not Found"
+        connectionSocket.sendall(responseHeader.encode())
+        # close client socket
+        connectionSocket.close()
+        
+# close socket when shutting down server 
 serverSocket.close()
