@@ -7,7 +7,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM) # tcp connection
 # prepare a server socket
 # define host name and network entry port:
 host = "127.0.0.1"
-port = 5341
+port = 5342
 # establish the connection
 print ('Ready to serve...')
 serverSocket.bind((host, port))

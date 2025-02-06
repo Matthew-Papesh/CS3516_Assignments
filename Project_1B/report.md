@@ -78,4 +78,18 @@ First and foremost, the server needs to establish connection and begin running b
 
 Recalling the server is running on the local host `127.0.0.1` with port `5341`, the server can be interacted with by a client browser such as Google Chrome. The URL of `http://127.0.0.0:5341` should then be hosting the service for html content retrieval. This can be done simply by treating the url as a local directory from which you specify the file after the location such as `http://127.0.0.1:5341/<file.html>`. 
 
-This means 
+This means that given `HelloWorld.html` is an accessible file on the server, it can be accessed while the server is running by visiting the URL `http://127.0.0.1:5341/HelloWorld.html`. In doing so successfully, the client user will be greeted by the website html with a title of *"Hello world!"*. Should another file be specified or this html incorrectly specified in the URL - maybe an accidental typo when typing the URL - the html will not be found as there is no other html files the server can access by any other name. This will leave the client user with a view of a *404 Not Found* error indicating the website was not found.  
+
+<div class="row" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+    <div class="column" style="margin-right: 0%;">
+        <img src="./images/HTML_Site.png" alt="successful-website-visit" style="width: 100%; height: auto;">
+    </div>
+    <div class="column" style="margin-right: 5%;">
+        <img src="./images/ServerPrint.png" alt="successful-server-output" style="width: 90%; height: auto;">
+    </div>
+    <div class="column" style="margin-left: 5%;">
+        <img src="./images/NotFoundError.png" alt="404-not-found-error" style="width: 100%; height: auto;">
+    </div>
+</div>
+
+To conclude, this can be seen in the above demonstration where when the server is running and the correct html is specified, the server successfully retrieves the html the client views and outputs the html code from the active server terminal [left-side images]. Alternatively, if an incorrect html is specified, such as `other.html`, then the server fails to find html content and returns a *404 Not Found* error [right-side images]. 
