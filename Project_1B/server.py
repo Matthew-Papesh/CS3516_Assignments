@@ -42,5 +42,5 @@ while True: # spin while running server
         # close client socket
         connectionSocket.close()
         
-# close socket when shutting down server 
+# shut down the server 
 serverSocket.close()
