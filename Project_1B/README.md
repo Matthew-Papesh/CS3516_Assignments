@@ -82,13 +82,13 @@ This means that given `HelloWorld.html` is an accessible file on the server, it 
 
 <div class="row" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
     <div class="column" style="margin-right: 0%;">
-        <img src="./images/HTML_Site.png" alt="successful-website-visit" style="width: 100%; height: auto;">
+        <img src="./images/HTML_Site.png" alt="successful-website-visit" style="width: 100%; height: auto; border: 1px solid black;">
     </div>
     <div class="column" style="margin-right: 5%;">
-        <img src="./images/ServerPrint.png" alt="successful-server-output" style="width: 90%; height: auto;">
+        <img src="./images/ServerPrint.png" alt="successful-server-output" style="width: 90%; height: auto; border: 1px solid black;">
     </div>
     <div class="column" style="margin-left: 5%;">
-        <img src="./images/NotFoundError.png" alt="404-not-found-error" style="width: 100%; height: auto;">
+        <img src="./images/NotFoundError.png" alt="404-not-found-error" style="width: 100%; height: auto; border: 1px solid black;">
     </div>
 </div>
 
